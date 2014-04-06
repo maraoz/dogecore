@@ -31,7 +31,7 @@ var run = function() {
 
   var peerman = new PeerManager();
 
-  peerman.addPeer(new Peer('127.0.0.1', 18333));
+  peerman.addPeer(new Peer('127.0.0.1', 22556));
 
   peerman.on('connection', function(conn) {
     conn.on('inv', handleInv);
