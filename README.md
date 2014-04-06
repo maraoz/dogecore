@@ -1,28 +1,28 @@
-Bitcore
+Dogecore
 =======
 
-A pure, powerful core for your bitcoin project.
+A pure, powerful core for your dogecoin project. This is a fork from [Bitcore](https://github.com/bitpay/bitcore) by Bitpay.
 
-Bitcore is a complete, native interface to the Bitcoin network, and provides the core functionality needed to develop apps for bitcoin.
+Dogecore is a complete, native interface to the Dogecoin network, and provides the core functionality needed to develop apps for dogecoin.
 
 #Principles
-Bitcoin is a powerful new peer-to-peer platform for the next generation of financial technology. The decentralized nature of the Bitcoin network allows for highly resilient bitcoin infrastructure, and the developer community needs reliable, open-source tools to implement bitcoin apps and services.
+Dogecoin is a powerful new peer-to-peer platform for the next generation of financial technology. The decentralized nature of the Dogecoin network allows for highly resilient dogecoin infrastructure, and the developer community needs reliable, open-source tools to implement dogecoin apps and services.
 
-**Bitcore unchains developers from fallible, centralized APIs, and provides the tools to interact with the real Bitcoin network.**
+**Dogecore unchains developers from fallible, centralized APIs, and provides the tools to interact with the real Dogecoin network.**
 
 #Get Started
 
-Bitcore runs on [node](http://nodejs.org/), and can be installed via [npm](https://npmjs.org/):
+Dogecore runs on [node](http://nodejs.org/), and can be installed via [npm](https://npmjs.org/):
 ```
-npm install bitcore
+npm install dogecore
 ```
 
-It is a collection of objects useful to bitcoin applications; class-like idioms are enabled via [Soop](https://github.com/bitpay/soop). In most cases, a developer will require the object's class directly. For instance:
+It is a collection of objects useful to dogecoin applications; class-like idioms are enabled via [Soop](https://github.com/bitpay/soop). In most cases, a developer will require the object's class directly. For instance:
 ```
-var bitcore = require('bitcore');
-var Address = bitcore.Address;
-var Transaction = bitcore.Transaction;
-var PeerManager = bitcore.PeerManager;
+var dogecore = require('dogecore');
+var Address = dogecore.Address;
+var Transaction = dogecore.Transaction;
+var PeerManager = dogecore.PeerManager;
 ```
 
 #Examples
@@ -30,10 +30,10 @@ var PeerManager = bitcore.PeerManager;
 Some examples are provided at the [examples](/examples) path. Here are some snippets:
 
 ## Validating an address
-Validating a Bitcoin address:
+Validating a Dogecoin address:
 ```js
-var bitcore = require('bitcore');
-var Address = bitcore.Address;
+var dogecore = require('dogecore');
+var Address = dogecore.Address;
 
 var addrs = [
   '1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa',
@@ -50,11 +50,11 @@ addrs.forEach(function(addr) {
 });
 ```
 ## Monitoring Blocks and Transactions
-For this example you need a running bitcoind instance with RPC enabled. 
+For this example you need a running dogecoind instance with RPC enabled. 
 ```js
-var bitcore = require('bitcore');
-var networks = bitcore.networks;
-var Peer = bitcore.Peer;
+var dogecore = require('dogecore');
+var networks = dogecore.networks;
+var Peer = dogecore.Peer;
 var PeerManager = require('soop').load('../PeerManager', {
   network: networks.testnet
 });
@@ -95,11 +95,11 @@ peerman.start();
 PeerManager will emit the following events: 'version', 'verack', 'addr', 'getaddr', 'error' 'disconnect'; and will relay events like: 'tx', 'block', 'inv'. Please see  [PeerManager.js](PeerManager.js), [Peer.js](Peer.js) and [Connection.js](Connection.js)
 
 
-## Consuming bitcoind RPC
-For this example you need a running bitcoind instance with RPC enabled. 
+## Consuming dogecoind RPC
+For this example you need a running dogecoind instance with RPC enabled. 
 ```js
-var bitcore = require('bitcore');
-var RpcClient = bitcore.RpcClient;
+var dogecore = require('dogecore');
+var RpcClient = dogecore.RpcClient;
 var hash = '0000000000b6288775bbd326bedf324ca8717a15191da58391535408205aada4';
 
 var config = {
@@ -130,15 +130,15 @@ by the transaction size. Documentation on the paramets of `TransactionBuilder`
 can be found on the source file.
 
 ```js
-var bitcore = require('bitcore');
-var networks = bitcore.networks;
-var Peer = bitcore.Peer;
-var TransactionBuilder = bitcore.TransactionBuilder;
+var dogecore = require('dogecore');
+var networks = dogecore.networks;
+var Peer = dogecore.Peer;
+var TransactionBuilder = dogecore.TransactionBuilder;
 var PeerManager = require('soop').load('../PeerManager', {
   network: networks.testnet
 });
 
-// this can be get from insight.bitcore.io API o blockchain.info
+// this can be get from insight.dogecore.io API o blockchain.info
 
 var unspent = [
     {
@@ -175,7 +175,7 @@ peerman.on('connect', function() {
   if (conn) {
     var outs = [{address:toAddress, amount:amt}];
     var opts = {remainderAddress: changeAddressString};
-    var Builder = bitcore.TransactionBuilder;
+    var Builder = dogecore.TransactionBuilder;
 
     var tx = new Builder(opts)
       .setUnspent(Unspent)
@@ -185,7 +185,7 @@ peerman.on('connect', function() {
 
    /* create and signing can be done in multiple steps using:
     *
-    *  var builder = new bitcore.TransactionBuilder(opts)
+    *  var builder = new dogecore.TransactionBuilder(opts)
     *             .setUnspent(utxos) 
     *             .setOutputs(outs);
     *  //later
@@ -218,11 +218,11 @@ peerman.start();
 Gets an address strings from a ScriptPubKey Buffer
 
 ```js
-var bitcore = require('bitcore');
-var Address = bitcore.Address;
-var coinUtil = bitcore.util;
-var Script = bitcore.Script;
-var network = bitcore.networks.testnet;
+var dogecore = require('dogecore');
+var Address = dogecore.Address;
+var coinUtil = dogecore.util;
+var Script = dogecore.Script;
+var network = dogecore.networks.testnet;
 
 var getAddrStr = function(s) {
   var addrStrs = [];
@@ -262,24 +262,19 @@ var s = Script.fromHumanReadable(script);
 console.log(getAddrStr(s)[0]); // mkZBYBiq6DNoQEKakpMJegyDbw2YiNQnHT
 ```
 
-#Security
-Please use at your own risk.
-
-Bitcore is still under heavy development and not quite ready for "drop-in" production use. If you find a security issue, please email security@bitcore.io.
-
 #Contributing
-Bitcore needs some developer love. Please send pull requests for bug fixes, code optimization, and ideas for improvement.
+Dogecore needs some developer love. Please send pull requests for bug fixes, code optimization, and ideas for improvement.
 
 #Browser support
 ## Building the browser bundle
-To build bitcore full bundle for the browser:
+To build dogecore full bundle for the browser:
 (this is automatically executed after you run `npm install`)
 
 ```
 node browser/build.js -a
 ```
 This will generate a `browser/bundle.js` file which you can include
-in your HTML to use bitcore in the browser.
+in your HTML to use dogecore in the browser.
 
 ## 
 
@@ -292,8 +287,8 @@ From example/simple.html
   <body>
     <script src="../browser/bundle.js"></script>
     <script>
-      var bitcore = require('bitcore');
-      var Address = bitcore.Address;
+      var dogecore = require('dogecore');
+      var Address = dogecore.Address;
       var a = new Address('1KerhGhLn3SYBEQwby7VyVMWf16fXQUj5d');
       console.log('1KerhGhLn3SYBEQwby7VyVMWf16fXQUj5d is valid? '+a.isValid());
     </script>
@@ -304,7 +299,7 @@ From example/simple.html
 You can check a more complex usage example at examples/example.html
 
 ## Generating a customized browser bundle
-To generate a customized bitcore bundle, you can specify 
+To generate a customized dogecore bundle, you can specify 
 which submodules you want to include in it with the -s option:
 
 ```
@@ -312,7 +307,7 @@ node browser/build.js -s Transaction,Address
 ```
 This will generate a `browser/bundle.js` containing only the Transaction
  and Address class, with all their dependencies. 
-Use this option if you are not using the whole bitcore library, to optimize
+Use this option if you are not using the whole dogecore library, to optimize
 the bundle size, script loading time, and general resource usage.
 
 ## Tests
@@ -342,10 +337,4 @@ And then open coverage/lcov-report/index.html in your browser.
 
 #License
 
-**Code released under [the MIT license](https://github.com/bitpay/bitcore/blob/master/LICENSE).**
-
-Copyright 2013-2014 BitPay, Inc. Bitcore is a trademark maintained by BitPay, Inc.
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/bitpay/bitcore/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
+**Code released under [the MIT license](https://github.com/bitpay/dogecore/blob/master/LICENSE).**
